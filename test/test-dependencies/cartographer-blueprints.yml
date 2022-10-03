@@ -1,0 +1,17 @@
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  name: cartographer-blueprints
+  namespace: carvel-test
+  annotations:
+    kapp.k14s.io/change-group: cartographer-blueprints
+    kapp.k14s.io/change-rule.cartographer: upsert after upserting cartographer
+    kapp.k14s.io/change-rule.serviceaccount: delete before deleting serviceaccount
+    kapp.k14s.io/change-rule.tekton-pipelines: upsert after upserting tekton-pipelines
+spec:
+  serviceAccountName: kadras-install-sa
+  packageRef:
+    refName: cartographer-blueprints.packages.kadras.io
+    versionSelection:
+      constraints: 0.1.0

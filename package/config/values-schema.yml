@@ -1,0 +1,62 @@
+#@data/values-schema
+---
+
+#@schema/desc "The type of supply chain to use for this golden path"
+#@schema/validation one_of=["basic", "testing", "testing_scanning"]
+supply_chain: basic
+
+#@schema/desc "The ServiceAccount used by the supply chain"
+service_account: default
+
+#@schema/desc "The ClusterBuilder used by kpack"
+cluster_builder: default
+
+#@schema/desc "The Git implementation used by Flux"
+git_implementation: go-git
+
+#@schema/desc "Configuration for the OCI Registry where to store the application images"
+registry:
+  #@schema/desc "The server of the OCI Registry where to store the application images"
+  server: ""
+  #@schema/desc "The repository under an OCI Registry where to store the application images"
+  repository: ""
+
+#@schema/desc "Configuration for the GitOps steps in the supply chain"
+gitops:
+
+  #@schema/desc "The Secret containing credentials to access the specified Git repository"
+  access_secret: git-secret
+
+  #@schema/desc "The name of the user interacting with the Git repository"
+  user_name: cartographer
+  #@schema/desc "The email of the user interacting with the Git repository"
+  user_email: cartographer@kadras.io
+
+  #@schema/desc "The commit message to use when pushing configuration changes to Git"
+  commit_message: "Update from Cartographer"
+  #@schema/desc "Whether to commit configuration changes to Git directly or via a pull request"
+  #@schema/validation one_of=["direct", "pull_request"]
+  commit_strategy: direct
+
+  #@schema/desc "The branch to use for GitOps activities"
+  branch: main
+
+  #@schema/desc "The server hosting the specified Git repository"
+  server_address: ""
+  #@schema/desc "The owner of the specified Git repository"
+  repository_owner: ""
+  #@schema/desc "The name of the Git repository to use for GitOps"
+  repository_name: ""
+  
+  #@schema/desc ""
+  #@schema/validation when=lambda _, ctx: ctx.parent["commit_strategy"] == "pull_request"
+  pull_request:
+    #@schema/desc "The type of Git server where to open the pull request"
+    #@schema/examples ("Open a pull request on GitHub", "github")
+    server_kind: ""
+    #@schema/desc "The branch to use to open a pull request. If empty, a random name is generated"
+    commit_branch: ""
+    #@schema/desc "The title of the pull request"
+    pull_request_title: ""
+    #@schema/desc "The body of the pull request"
+    pull_request_body: ""
