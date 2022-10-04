@@ -19,7 +19,7 @@ spec:
           - kbld: {}
       export:
       - imgpkgBundle:
-          image: ghcr.io/arktonix/artographer-golden-path-web
+          image: ghcr.io/arktonix/cartographer-golden-path-web
           useKbldImagesLock: true
         includePaths:
         - config
