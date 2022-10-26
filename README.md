@@ -23,11 +23,33 @@ The `basic` supply chain provides a simple Cartographer path consisting of the f
 
 ### Supply Chain: Testing
 
-Coming soon.
+The `testing` supply chain provides a Cartographer path consisting of the following stages:
+
+* Monitor source code repository with FluxCD;
+* Test source code with Tekton;
+* Transform application source code into OCI images with kpack;
+* Apply workload conventions (such as Spring Boot) with Cartographer Conventions;
+* Define and configure the workload manifests with Knative and Carvel;
+* Push the workload manifests via GitOps or RegistryOps;
+* Generate the deliverable resource used for deployment on Kubernetes.
+
+<img src="supply-chain-testing.png" alt="Supply chain testing: source provider -> source tester -> image builder -> convention-provider -> config-provider -> config-writer" />
 
 ### Supply Chain: Testing and Scanning
 
-Coming soon.
+The `testing_scanning` supply chain provides a Cartographer path consisting of the following stages:
+
+* Monitor source code repository with FluxCD;
+* Test source code with Tekton;
+* Scan source code with Grype;
+* Transform application source code into OCI images with kpack;
+* Scan image with Grype;
+* Apply workload conventions (such as Spring Boot) with Cartographer Conventions;
+* Define and configure the workload manifests with Knative and Carvel;
+* Push the workload manifests via GitOps or RegistryOps;
+* Generate the deliverable resource used for deployment on Kubernetes.
+
+<img src="supply-chain-testing-scanning.png" alt="Supply chain testing and scanning: source provider -> source tester -> source scanner -> image builder -> image scanner -> convention-provider -> config-provider -> config-writer" />
 
 ## Prerequisites
 
@@ -66,7 +88,7 @@ Either way, you can then install the Cartographer Golden Path Web package using 
 ```shell
 kctrl package install -i cartographer-golden-path-web \
     -p cartographer-golden-path-web.packages.kadras.io \
-    -v 0.1.1 \
+    -v 0.2.0 \
     -n carvel-packages
 ```
 
@@ -152,7 +174,7 @@ Then, reference it from the `kctrl` command when installing or upgrading the pac
 ```shell
 kctrl package install -i cartographer-golden-path-web \
     -p cartographer-golden-path-web.packages.kadras.io \
-    -v 0.1.1 \
+    -v 0.2.0 \
     -n carvel-packages \
     --values-file values.yml
 ```
@@ -166,7 +188,7 @@ For documentation specific to Cartographer, check out [cartographer.sh](https://
 This package is inspired by:
 
 * the [examples](https://github.com/vmware-tanzu/cartographer/tree/main/examples) in the Cartographer project;
-* the [Cartographer Catalog](https://github.com/vmware-tanzu/cartographer-catalog) package used in Tanzu Community Edition;
+* the original cartographer-catalog package used in [Tanzu Community Edition](https://github.com/vmware-tanzu/community-edition) before its retirement;
 * the [set of supply chains](https://github.com/vrabbi/tap-oss/tree/main/packages/ootb-supply-chains) included in an example of Tanzu Application Platform OSS stack.
 
 ## Supply Chain Security
