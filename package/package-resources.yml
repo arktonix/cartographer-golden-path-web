@@ -4,6 +4,8 @@ metadata:
   creationTimestamp: null
   name: cartographer-golden-path-web.packages.kadras.io.0.0.0
 spec:
+  licenses:
+  - Apache 2.0
   refName: cartographer-golden-path-web.packages.kadras.io
   releasedAt: null
   template:
